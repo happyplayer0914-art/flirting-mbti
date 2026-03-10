@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 📊 구글 애널리틱스 (추후 마스터님의 새 ID로 변경) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>나의 플러팅 무기 테스트 | 연애 심리 MBTI</title>
+    <meta name="description" content="내가 호감 있는 사람을 꼬실 때 무의식적으로 꺼내 드는 무기는? 나의 플러팅 스타일을 분석해보세요!">
+    <meta name="keywords" content="플러팅 테스트, 연애 심리테스트, MBTI 연애, 썸, 궁합, 플러팅 무기">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="나의 플러팅 무기 테스트 💘">
+    <meta property="og:description" content="내가 썸 탈 때 쓰는 치명적인 무기는 스나이퍼? 맹독 다트? 지금 바로 확인하기!">
+    <!-- 🚨 이미지 주소는 나중에 깃허브에 올리고 교체하세요 -->
+    <meta property="og:image" content="https://raw.githubusercontent.com/아이디/저장소/main/og-image-flirting.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800;900&display=swap');
+        
+        :root {
+            --bg-dark: #0f0715; 
+            --neon-pink: #ec4899;
+            --neon-purple: #a855f7;
+        }
+
+        body {
+            margin: 0; padding: 0; background-color: var(--bg-dark);
+            font-family: 'Pretendard', sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 100vh; color: white; overflow-x: hidden; -webkit-tap-highlight-color: transparent;
+        }
+
+        #app-container {
+            position: relative; width: 100%; max-width: 420px; height: 100vh; max-height: 850px;
+            background: radial-gradient(circle at 50% 0%, rgba(236, 72, 153, 0.15) 0%, var(--bg-dark) 60%),
+                        radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.15) 0%, var(--bg-dark) 60%);
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.9); overflow: hidden; display: flex; flex-direction: column; z-index: 10;
+        }
+
+        @media (min-width: 640px) {
+            #app-container { height: 85vh; border-radius: 36px; border: 1px solid rgba(236, 72, 153, 0.2); margin: 10px 0; }
+        }
+
+        .screen { position: absolute; inset: 0; display: none; flex-direction: column; padding: 24px; overflow-y: auto; scrollbar-width: none; }
+        .screen::-webkit-scrollbar { display: none; }
+        .screen.active { display: flex; }
+
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        .slide-up { animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Neon UI Elements */
+        .glass-panel { 
+            background: rgba(20, 10, 30, 0.6); backdrop-filter: blur(12px); 
+            border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 24px; 
+            box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.05);
+        }
+        
+        .option-btn { 
+            width: 100%; background: rgba(30, 15, 45, 0.8); 
+            border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 20px; padding: 20px; 
+            text-align: left; transition: all 0.3s ease; display: flex; align-items: center; gap: 16px; cursor: pointer; 
+        }
+        .option-btn:hover, .option-btn:active { 
+            transform: translateY(-2px); border-color: var(--neon-pink); 
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); background: rgba(50, 20, 70, 0.9); 
+        }
+
+        .text-gradient-neon { 
+            background: linear-gradient(135deg, #f472b6, #c084fc); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
+
+        .progress-track { background: rgba(0, 0, 0, 0.5); border-radius: 99px; height: 6px; overflow: hidden; border: 1px solid rgba(236, 72, 153, 0.3); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #ec4899, #a855f7); border-radius: 99px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px rgba(236,72,153,0.8); }
+
+        .ad-container { width: 100%; max-width: 420px; min-height: 50px; background: rgba(255, 255, 255, 0.02); display: flex; align-items: center; justify-content: center; font-size: 11px; color: #475569; border: 1px dashed rgba(255, 255, 255, 0.05); margin: 5px 0; border-radius: 12px; z-index: 20; position: relative;}
+        
+        /* Floating Animation */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        
+        /* Pulse heart */
+        @keyframes heartPulse { 0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(236,72,153,0.5)); } 50% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(236,72,153,1)); } 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(236,72,153,0.5)); } }
+        .heart-pulse { animation: heartPulse 1.5s infinite; }
+    </style>
+</head>
+<body>
+
+    <!-- 카카오 애드핏 (상단) -->
+    <div class="ad-container" id="ad-top">
+        <p>Kakao AdFit 승인 대기중...</p>
+    </div>
+
+    <div id="app-container">
+        <!-- 배경 장식 -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 rounded-full blur-[80px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-600/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+        <div id="ui-layer" class="w-full h-full relative">
+            
+            <!-- 1. 시작 화면 -->
+            <div id="screen-start" class="screen active justify-center items-center text-center">
+                <div class="relative mb-6">
+                    <span class="text-8xl relative z-10 heart-pulse inline-block">💘</span>
+                </div>
+                <p class="text-pink-400 font-bold tracking-[0.3em] text-[10px] mb-3 uppercase">Flirting Weapon Test</p>
+                <h1 class="text-4xl font-black text-white mb-4 leading-tight drop-shadow-lg">
+                    나의 <span class="text-gradient-neon">플러팅 무기</span><br>테스트
+                </h1>
+                <p class="text-slate-300 text-sm mb-12 leading-relaxed">
+                    마음에 드는 타겟을 발견했다!<br>당신이 무의식적으로 꺼내 드는 치명적인 무기는?
+                </p>
+                <button onclick="startGame()" class="w-full py-5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-black text-lg shadow-[0_0_30px_rgba(236,72,153,0.4)] hover:shadow-[0_0_40px_rgba(236,72,153,0.6)] transition-all active:scale-95 mb-4">
+                    내 무기고 열어보기
+                </button>
+
+                <!-- 📖 도감 버튼 (새로 추가됨) -->
+                <button onclick="switchScreen('screen-encyclopedia')" class="w-full py-4 rounded-2xl bg-black/30 border border-pink-500/40 text-pink-300 font-bold text-sm hover:bg-black/50 transition-all active:scale-95 flex justify-center items-center gap-2">
+                    <span>📜</span> 무기 도감 열람 (MBTI)
+                </button>
+            </div>
+
+            <!-- 2. 질문 화면 -->
+            <div id="screen-question" class="screen">
+                <div class="pt-4 pb-8 fade-in">
+                    <p id="q-phase" class="text-center text-purple-400 font-bold text-xs tracking-widest uppercase mb-6">Phase 1. 타겟 발견</p>
+                    
+                    <div class="mb-8">
+                        <div class="flex justify-between text-xs font-bold text-slate-400 mb-2">
+                            <span id="q-progress-text">Q 1 / 12</span>
+                        </div>
+                        <div class="progress-track">
+                            <div id="q-progress-bar" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <h2 id="q-text" class="text-xl md:text-[22px] font-extrabold text-white leading-snug mb-10 break-keep min-h-[90px] flex items-center">
+                        질문 텍스트
+                    </h2>
+
+                    <div class="space-y-4">
+                        <button onclick="handleAnswer('A')" class="option-btn group">
+                            <span id="q-icon-a" class="text-2xl opacity-70 group-hover:opacity-100 transition-opacity">✨</span>
+                            <span id="q-text-a" class="text-[15px] font-medium text-slate-200 leading-relaxed">선택지 A</span>
+                        </button>
+                        <button onclick="handleAnswer('B')" class="option-btn group">
+                            <span id="q-icon-b" class="text-2xl opacity-70 group-hover:opacity-100 transition-opacity">🌙</span>
+                            <span id="q-text-b" class="text-[15px] font-medium text-slate-200 leading-relaxed">선택지 B</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 로딩 화면 -->
+            <div id="screen-loading" class="screen justify-center items-center text-center">
+                <div class="relative w-32 h-32 mb-8 flex items-center justify-center">
+                    <div class="absolute inset-0 border-4 border-pink-500/20 rounded-full"></div>
+                    <div class="absolute inset-0 border-4 border-purple-500 rounded-full border-t-transparent animate-spin"></div>
+                    <span class="text-4xl animate-pulse">🔒</span>
+                </div>
+                <h2 class="text-xl font-bold text-white mb-3">무기고 심층 분석 중...</h2>
+                <p class="text-sm text-pink-400/80">당신의 치명적인 플러팅 스타일을 도출합니다</p>
+                <div class="w-48 mt-8 progress-track mx-auto">
+                    <div id="loading-bar" class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- 4. 결과 화면 -->
+            <div id="screen-result" class="screen pb-12">
+                <div class="slide-up">
+                    <div class="text-center pt-6 pb-6">
+                        <p class="text-pink-500 font-bold tracking-widest text-[10px] mb-2 uppercase">Your Secret Weapon</p>
+                        <div id="res-emoji" class="text-8xl mb-4 animate-float filter drop-shadow-[0_0_20px_rgba(236,72,153,0.5)]">🎯</div>
+                        <p id="res-mbti" class="text-purple-300 font-black tracking-[0.2em] text-sm mb-1">ENTJ</p>
+                        <h2 id="res-title" class="text-3xl font-extrabold text-white mb-3 break-keep drop-shadow-md">정밀 타격 스나이퍼</h2>
+                        <div class="inline-block px-4 py-1 rounded-full bg-pink-500/20 border border-pink-500/30 text-pink-300 text-xs font-bold mb-4" id="res-hashtag">#명중률_100% #직진본능</div>
+                    </div>
+
+                    <!-- 무기 상세 스펙 -->
+                    <div class="glass-panel p-6 mb-4">
+                        <h3 class="text-white font-bold text-sm mb-3 flex items-center border-b border-white/10 pb-2">
+                            <span class="mr-2 text-pink-400">🔍</span> 무기 상세 분석
+                        </h3>
+                        <p id="res-desc" class="text-slate-300 text-[14px] leading-[1.7] break-keep mb-4"></p>
+                        
+                        <div class="bg-black/30 rounded-xl p-4 border border-white/5">
+                            <p class="text-purple-400 text-[10px] font-bold uppercase mb-1">💡 플러팅 필살기</p>
+                            <p id="res-skill" class="text-sm text-white font-medium">필살기 텍스트</p>
+                        </div>
+                    </div>
+
+                    <!-- 꿀잼 요소: 치명타 성공률 & 약점 (새로 추가됨) -->
+                    <div class="glass-panel p-5 mb-6 border-t-2 border-t-purple-500">
+                        <div class="flex justify-between items-end mb-2">
+                            <h3 class="text-purple-300 font-bold text-[11px] uppercase tracking-wider flex items-center"><span class="mr-2">💥</span> 치명타 성공률</h3>
+                            <span id="res-power-text" class="text-white font-black text-sm">0%</span>
+                        </div>
+                        <div class="progress-track h-2 mb-5">
+                            <div id="res-power-bar" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="bg-red-900/20 rounded-lg p-3 border border-red-500/20">
+                            <p class="text-red-400 text-[10px] font-bold uppercase mb-1">⚠️ 치명적 약점 (주의사항)</p>
+                            <p id="res-weakness" class="text-xs text-slate-300 leading-relaxed">약점 텍스트</p>
+                        </div>
+                    </div>
+
+                    <!-- 궁합 -->
+                    <div class="grid grid-cols-2 gap-3 mb-8">
+                        <div class="glass-panel p-4 text-center bg-gradient-to-b from-blue-900/20 to-transparent border-t-2 border-t-blue-400">
+                            <p class="text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-2">환상의 무기 조합</p>
+                            <div id="res-best-emoji" class="text-3xl mb-1">🛏️</div>
+                            <p id="res-best-title" class="text-white font-bold text-[11px] break-keep">포근한 솜이불</p>
+                        </div>
+                        <div class="glass-panel p-4 text-center bg-gradient-to-b from-red-900/20 to-transparent border-t-2 border-t-rose-500">
+                            <p class="text-rose-400 text-[10px] font-bold uppercase tracking-wider mb-2">상극의 무기 조합</p>
+                            <div id="res-worst-emoji" class="text-3xl mb-1">💣</div>
+                            <p id="res-worst-title" class="text-white font-bold text-[11px] break-keep">예측불허 연막탄</p>
+                        </div>
+                    </div>
+
+                    <!-- 🛒 쿠팡 파트너스 아이템 추천 -->
+                    <div id="coupang-banner-container" class="mb-6"></div>
+
+                    <!-- 🏰 포털 연동 CTA -->
+                    <button onclick="window.open('https://portal-master-test.vercel.app/', '_blank')" class="w-full py-5 mb-8 bg-gradient-to-r from-slate-800 to-indigo-900 hover:from-slate-700 hover:to-indigo-800 border border-indigo-500/50 text-white rounded-2xl font-black text-sm shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all active:scale-95 flex flex-col items-center justify-center gap-1 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-white/5 animate-pulse"></div>
+                        <span class="text-yellow-400 text-xs">내 무기 확인 완료했다면?</span>
+                        <div class="flex items-center gap-2 relative z-10">
+                            <span>🎮</span> 마스터의 놀이터 가서 10G 받기!
+                        </div>
+                    </button>
+
+                    <div class="space-y-3">
+                        <button onclick="copyLink()" class="w-full py-4 bg-pink-600 hover:bg-pink-500 text-white rounded-xl font-bold text-base shadow-[0_0_15px_rgba(236,72,153,0.4)] transition-all active:scale-95 flex justify-center items-center gap-2">
+                            <span>🔗</span> 내 무기 결과 공유하기
+                        </button>
+                        <button onclick="location.reload()" class="w-full py-4 bg-transparent border border-slate-600 text-slate-400 hover:text-white rounded-xl font-bold text-sm transition-all active:scale-95">
+                            테스트 다시하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 도감 화면 (새로 추가됨) -->
+            <div id="screen-encyclopedia" class="screen pb-12">
+                <div class="slide-up">
+                    <button onclick="switchScreen('screen-start')" class="mb-6 text-pink-400 font-bold text-sm flex items-center hover:text-pink-300 transition-colors">
+                        ← 무기고 입구로 돌아가기
+                    </button>
+                    <h1 class="text-2xl font-extrabold text-white mb-2">플러팅 무기 도감</h1>
+                    <p class="text-slate-400 text-sm mb-8">16가지 매력 무기들의 상세 분석 아카이브입니다.</p>
+                    <div id="encyclopedia-content" class="space-y-6"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 카카오 애드핏 (하단) -->
+    <div class="ad-container" id="ad-bottom">
+        <p>Kakao AdFit 승인 대기중...</p>
+    </div>
+
+    <!-- 토스트 메시지 -->
+    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-pink-900/90 text-white px-6 py-3 rounded-full text-sm font-bold opacity-0 transition-opacity duration-300 pointer-events-none z-[100] border border-pink-500/50 shadow-xl backdrop-blur-sm whitespace-nowrap">
+        링크가 복사되었습니다! 💘
+    </div>
+
+    <script>
+        // --- 진동 ---
+        function triggerHaptic() {
+            if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(40);
+        }
+
+        // 화면 전환 유틸리티
+        function switchScreen(screenId) {
+            triggerHaptic();
+            document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(screenId);
+            target.classList.add('active');
+            if(screenId === 'screen-result' || screenId === 'screen-encyclopedia') target.scrollTop = 0;
+        }
+
+        // --- 12 문항 데이터 ---
+        const questions = [
+            { phase: "Phase 1. 타겟 발견", q: "마음에 쏙 드는 이상형을 발견했을 때 나의 행동은?", a: "일단 눈을 맞추고 자연스럽게 말을 걸 타이밍을 찾는다.", b: "멀리서 힐끔힐끔 쳐다보며 속으로 어떻게 다가갈지 시뮬레이션을 돌린다.", vA: "E", vB: "I", iconA: "👀", iconB: "🤔" },
+            { phase: "Phase 1. 타겟 발견", q: "여럿이 있는 술자리, 관심 있는 사람이 내 앞에 앉았다!", a: "'오! 이거 맛있겠다, 같이 먹을래요?' 적극적으로 리액션하며 대화를 주도한다.", b: "상대방의 이야기를 조용히 경청하며 휴지나 물을 은근슬쩍 챙겨준다.", vA: "E", vB: "I", iconA: "🍻", iconB: "💧" },
+            { phase: "Phase 1. 타겟 발견", q: "주말에 호감 있는 상대와 연락이 닿았다.", a: "'오늘 날씨 좋은데 잠깐 얼굴 볼래요?' 밖으로 이끌어낸다.", b: "'집에서 뭐하고 쉬어요?' 카톡으로 티키타카를 이어가며 친밀감을 쌓는다.", vA: "E", vB: "I", iconA: "☀️", iconB: "📱" },
+            
+            { phase: "Phase 2. 탐색과 신호", q: "상대방이 '오늘 날씨 되게 좋다~'라고 카톡을 보냈을 때?", a: "'그러게! 미세먼지도 없고 엄청 맑네. 산책하기 좋겠다.'", b: "'어디 놀러 가고 싶다 ㅠㅠ 이런 날씨엔 한강 가서 치맥인데!'", vA: "S", vB: "N", iconA: "🚶", iconB: "🍗" },
+            { phase: "Phase 2. 탐색과 신호", q: "데이트 첫날, 상대방을 칭찬해 준다면?", a: "'오늘 입은 셔츠 색깔 진짜 잘 어울려요! 향수도 좋은 거 쓰시네요.'", b: "'분위기가 되게 매력 있으신 거 같아요. 계속 대화하고 싶어지네요.'", vA: "S", vB: "N", iconA: "👕", iconB: "✨" },
+            { phase: "Phase 2. 탐색과 신호", q: "썸 타는 상대와 영화를 보고 나왔다.", a: "'아까 주인공이 악당 물리칠 때 액션 씬 진짜 멋있지 않았어?'", b: "'만약 우리가 저 상황이었으면 어떻게 했을까? 난 무조건 도망쳤을 듯ㅋㅋ'", vA: "S", vB: "N", iconA: "🎬", iconB: "💭" },
+            
+            { phase: "Phase 3. 위기와 공감", q: "썸남/썸녀가 '나 오늘 너무 우울해서 빵 샀어...' 라고 할 때?", a: "'왜 우울해? 무슨 일 있었어? (그리고 무슨 빵 샀는지 은근 궁금함)'", b: "'헉 왜 우울해 ㅠㅠ 맛있는 빵 먹고 기분 좀 나아졌어? ㅠㅠ'", vA: "T", vB: "F", iconA: "🧐", iconB: "🥺" },
+            { phase: "Phase 3. 위기와 공감", q: "호감 있던 상대가 다른 사람과 친하게 웃고 있는 것을 봤을 때?", a: "'둘이 무슨 사이지? 그냥 친한 동료인가?' 상황을 먼저 파악하려 한다.", b: "'아... 뭔가 질투 나네...' 묘하게 서운하고 기분이 가라앉는다.", vA: "T", vB: "F", iconA: "🕵️", iconB: "💔" },
+            { phase: "Phase 3. 위기와 공감", q: "데이트 중 내가 실수로 물을 엎질렀다! 상대의 어떤 반응에 치일까?", a: "'여기 휴지! 옷은 안 젖었어요? 얼른 닦아줄게요.' (빠른 수습과 해결)", b: "'앗 깜짝이야! 안 다쳤어요? 놀랐겠다 괜찮아요??' (나에 대한 찐 걱정)", vA: "T", vB: "F", iconA: "🧻", iconB: "🩹" },
+            
+            { phase: "Phase 4. 데이트 설계", q: "주말 첫 데이트! 코스를 짤 때 나의 스타일은?", a: "식당 예약, 예쁜 카페, 영화 시간과 동선까지 완벽하게 알아둔다.", b: "만나서 뭐 먹을지 큰 틀만 정하고 그날 분위기에 끌리는 곳으로 간다.", vA: "J", vB: "P", iconA: "📝", iconB: "🍃" },
+            { phase: "Phase 4. 데이트 설계", q: "데이트 중 가려던 맛집이 오늘 휴무일이다! 나의 대처는?", a: "당황스럽지만, 미리 찾아둔 2순위 식당(플랜 B)으로 자연스럽게 안내한다.", b: "'헐 닫았네! 저기 옆에 있는 식당 냄새 좋은데 저기로 갈까?' 바로 선회한다.", vA: "J", vB: "P", iconA: "🗺️", iconB: "👀" },
+            { phase: "Phase 4. 데이트 설계", q: "상대방에게 깜짝 선물을 줄 때 나의 방식은?", a: "며칠 전부터 상대방이 필요할 만한 것을 꼼꼼히 찾아보고 미리 준비해둔다.", b: "길을 걷다 상대방과 찰떡으로 어울릴 예쁜 아이템을 발견하면 충동적으로 사서 준다.", vA: "J", vB: "P", iconA: "🎁", iconB: "🛍️" }
+        ];
+
+        // --- 16가지 완벽 매핑 데이터 (치명타 게이지와 약점 추가) ---
+        const resultsMap = {
+            "ENTJ": { title: "정밀 타격 스나이퍼", emoji: "🎯", hash: "#명중률_100% #직진본능", desc: "타겟이 정해지면 망설임 없이 직진합니다! 철저한 계획 하에 상대의 취향과 심장을 정확히 꿰뚫는 치명적인 플러팅을 구사합니다. 당신의 페이스에 말려든 상대는 절대 빠져나갈 수 없습니다.", skill: "흔들림 없는 돌직구 고백", best: "ISFP", worst: "INTP", power: 99, weakness: "타겟이 철벽치면 궤도 이탈함" },
+            "INTJ": { title: "치밀한 체스말", emoji: "♟️", hash: "#두뇌싸움 #완벽한_설계", desc: "감정보다는 논리. 상대의 성향을 완벽히 분석한 뒤, 본인이 원하는 판으로 상대를 자연스럽게 이끄는 고지능 전략적 플러팅의 대가입니다. 무심한 듯 챙겨주는 츤데레 매력이 있습니다.", skill: "상대가 원할 때 정확히 내어주는 센스", best: "ENFP", worst: "ESFJ", power: 95, weakness: "머릿속으로 혼자 체스 두다가 고백 타이밍 놓침" },
+            "ENTP": { title: "예측불허 연막탄", emoji: "💣", hash: "#능글맞음 #마성의_매력", desc: "능글맞은 장난과 팩트폭격을 자유자재로 넘나들며 상대방의 혼을 쏙 빼놓습니다. 종잡을 수 없는 매력 때문에 상대방은 어느새 당신 생각만 하게 되는 마성의 플러팅 무기입니다.", skill: "티키타카 말싸움 중 훅 들어오는 설렘", best: "INFJ", worst: "ISFJ", power: 90, weakness: "장난치다가 진짜 찐친 되어버림" },
+            "INTP": { title: "커스텀 마법 포션", emoji: "🧪", hash: "#은밀한_침투 #너잘알", desc: "평소엔 조용하고 무심해 보이지만, 상대의 사소한 관심사를 깊게 파고들어 완벽한 대화 상대로 변신합니다. 어느새 상대방이 당신의 지적인 매력에 흠뻑 취하게 만드는 은밀한 플러팅입니다.", skill: "너의 덕질 메이트가 되어줄게", best: "ENTJ", worst: "ESFP", power: 85, weakness: "상대가 내 덕질 분야에 관심 없으면 할 말 없음" },
+            "ESTJ": { title: "브레이크 없는 전차", emoji: "🚜", hash: "#밀당_거부 #불도저", desc: "밀당 따윈 없습니다. 내 사람이다 싶으면 묵직하고 솔직한 돌직구로 상대의 마음을 밀어붙입니다. 투박하지만 진정성 있는 당신의 행동에 상대방은 든든함과 설렘을 느낍니다.", skill: "모든 데이트를 리드하는 카리스마", best: "INTP", worst: "INFP", power: 98, weakness: "너무 훅 들어와서 상대가 뺑소니 당한 줄 앎" },
+            "ISTJ": { title: "빈틈없는 돋보기", emoji: "🔍", hash: "#기억력_갑 #실전압축_다정", desc: "화려한 말보다는 확실한 행동으로 보여줍니다. 상대의 사소한 습관, 지나가듯 말한 필요를 돋보기처럼 기억해 두었다가 무심한 듯 완벽하게 챙겨주는 '실전 압축 플러팅'의 장인입니다.", skill: "네가 흘려 말한 거 다 기억하고 있었지", best: "ESFP", worst: "ENFP", power: 88, weakness: "챙겨준 걸 티 안 내서 상대가 모를 때가 많음" },
+            "ESTP": { title: "매력 융단폭격기", emoji: "🚀", hash: "#숨쉴틈없음 #스킨십_장인", desc: "숨 쉴 틈 없는 매력 발산! 넘치는 자신감과 자연스러운 스킨십, 화려한 언변으로 상대의 방어벽을 순식간에 박살 냅니다. 같이 있으면 지루할 틈이 없는 액션영화 같은 플러팅입니다.", skill: "어색함을 부수는 핵인싸 바이브", best: "ISFJ", worst: "INFJ", power: 97, weakness: "가끔 화력이 너무 세서 부담스러워 도망감" },
+            "ISTP": { title: "날카로운 부메랑", emoji: "🪃", hash: "#무심함 #치고_빠지기", desc: "평소엔 관심 없는 척 쿨하지만, 무심하게 툭 던진 다정한 한마디가 부메랑처럼 날아가 상대의 심장에 정통으로 꽂힙니다. 다가갈 듯 멀어지며 상대를 안달 나게 만드는 고단수입니다.", skill: "안 챙겨주는 척하면서 뒤에서 다 해줌", best: "ESFJ", worst: "ENFJ", power: 89, weakness: "치고 빠지려다가 내가 영영 빠져버림" },
+            "ENFJ": { title: "포근한 솜이불", emoji: "🛏️", hash: "#다정함_한도초과 #무장해제", desc: "다정한 눈빛, 완벽한 리액션, 세심한 배려로 상대를 무장해제 시킵니다. 숨만 쉬어도 플러팅이 되는 당신은 상대방을 세상에서 가장 존중받는 사람으로 만들어주는 따뜻함의 의인화입니다.", skill: "너의 모든 이야기를 들어줄게", best: "INFP", worst: "ISTP", power: 96, weakness: "만인에게 다정해서 어장으로 오해받음" },
+            "INFJ": { title: "비밀스러운 수정구슬", emoji: "🔮", hash: "#내면_꿰뚫기 #신비주의", desc: "상대의 겉모습이 아닌 내면의 상처와 감정을 꿰뚫어 보는 깊은 공감 능력이 무기입니다. 신비롭고 다정한 당신의 분위기에 취해, 어느새 상대방은 당신에게 모든 것을 의지하게 됩니다.", skill: "너의 진짜 마음을 알아주는 단 한 사람", best: "ENTP", worst: "ESTP", power: 92, weakness: "혼자 생각이 너무 많아서 시작조차 힘듦" },
+            "ENFP": { title: "반짝이는 미러볼", emoji: "🪩", hash: "#인간_비타민 #햇살_플러팅", desc: "통통 튀는 애교와 엄청난 리액션, 긍정적인 에너지로 주변을 밝힙니다! 같이 있으면 너무 즐겁고 웃음이 끊이지 않아서, 자꾸만 옆에 두고 싶게 만드는 '햇살 같은 플러팅'의 정석입니다.", skill: "우주 최강 텐션으로 너의 우울함 박살 내기", best: "INTJ", worst: "ISTJ", power: 94, weakness: "플러팅인지 그냥 혼자 신난 건지 구분이 안 됨" },
+            "INFP": { title: "치명적인 맹독 다트", emoji: "🎯", hash: "#가랑비_옷젖듯 #감성_저격", desc: "처음엔 수줍어 보이지만, 한 번 마음을 열면 상대의 감성을 완벽하게 저격하는 낭만적이고 치명적인 언어를 구사합니다. 서서히 스며들어 결국 해독제가 없게 만드는 감성 플러팅입니다.", skill: "새벽 2시에 보내는 감성 터지는 카톡", best: "ENFJ", worst: "ESTJ", power: 90, weakness: "새벽 감성에 취해 급발진하고 아침에 이불 킥함" },
+            "ESFJ": { title: "달콤한 솜사탕", emoji: "🍭", hash: "#세심한_배려 #정석_로맨스", desc: "상대방의 기분, 취향, 컨디션을 실시간으로 체크하며 꿀 떨어지는 다정함을 선물합니다. 어색함 없이 부드럽게 리드하며, 몽글몽글하고 달콤한 로맨스 영화 같은 플러팅을 선사합니다.", skill: "네가 좋아하는 건 무조건 맞춰줄게", best: "ISTP", worst: "INTJ", power: 95, weakness: "상대방 챙겨주느라 다 퍼주다가 혼자 상처받음" },
+            "ISFJ": { title: "따뜻한 손난로", emoji: "♨️", hash: "#항상_네편 #은은한_스며듦", desc: "절대 부담스럽게 직진하지 않습니다. 항상 곁에서 묵묵히 챙겨주고, 상대방이 힘들 때 가장 먼저 손을 내밀어 주는 은은한 다정함이 무기입니다. 어느새 없으면 안 되는 존재로 자리 잡습니다.", skill: "말없이 챙겨주는 세심한 밴드와 소화제", best: "ESTP", worst: "ENTP", power: 87, weakness: "너무 은은해서 상대방이 모기향인 줄 앎" },
+            "ESFP": { title: "화려한 불꽃놀이", emoji: "🎆", hash: "#시선강탈 #분위기메이커", desc: "존재 자체가 시선 강탈! 특유의 엄청난 친화력과 매력으로 순식간에 대화의 중심이 됩니다. 상대방을 즐겁게 해 주기 위해 끊임없이 매력을 터뜨리는 축제 같은 플러팅을 구사합니다.", skill: "같이 노는 순간 넌 이미 내게 빠졌어", best: "ISTJ", worst: "INTP", power: 93, weakness: "분위기는 잘 띄우는데 정작 진지해지면 어색함" },
+            "ISFP": { title: "은은한 머스크 향수", emoji: "🧴", hash: "#나른한_섹시 #자연스러움", desc: "억지로 매력을 어필하지 않아도 뿜어져 나오는 특유의 여유로움과 나른함이 무기입니다. 내향적이지만 친해지면 보여주는 애교와 부드러움으로 상대의 감각을 마비시키는 본능적 플러팅입니다.", skill: "억지스럽지 않은 텐션과 부드러운 스킨십", best: "ENTJ", worst: "ESFJ", power: 91, weakness: "귀찮아서 집 밖에 안 나가면 무기 쓸 일이 없음" }
+        };
+
+        // --- 도감 생성기 ---
+        function generateEncyclopedia() {
+            const container = document.getElementById('encyclopedia-content');
+            container.innerHTML = '';
+            for (const [mbti, data] of Object.entries(resultsMap)) {
+                container.innerHTML += `
+                    <article class="glass-panel p-6 border-t border-pink-500/20">
+                        <header class="mb-4">
+                            <span class="text-pink-400 font-bold tracking-widest text-xs uppercase">${mbti} 무기</span>
+                            <h2 class="text-2xl font-black text-white mt-1 flex items-center gap-2">
+                                <span>${data.emoji}</span> ${data.title}
+                            </h2>
+                        </header>
+                        <section class="space-y-3 text-sm leading-relaxed text-slate-300 break-keep">
+                            <p><strong class="text-pink-300">🔍 특징:</strong> ${data.desc}</p>
+                            <p><strong class="text-purple-300">⚠️ 약점:</strong> ${data.weakness}</p>
+                            <p><strong class="text-blue-400">🤝 환상 조합:</strong> ${resultsMap[data.best].title} / <strong class="text-red-400">상극:</strong> ${resultsMap[data.worst].title}</p>
+                        </section>
+                    </article>
+                `;
+            }
+        }
+        generateEncyclopedia();
+
+        let qIndex = 0;
+        let scores = { E:0, I:0, S:0, N:0, T:0, F:0, J:0, P:0 };
+
+        function startGame() {
+            switchScreen('screen-question');
+            qIndex = 0; scores = { E:0, I:0, S:0, N:0, T:0, F:0, J:0, P:0 };
+            updateQuestion();
+        }
+
+        function updateQuestion() {
+            const q = questions[qIndex];
+            document.getElementById('q-phase').innerText = q.phase;
+            document.getElementById('q-progress-text').innerText = `Question ${qIndex + 1} / ${questions.length}`;
+            document.getElementById('q-progress-bar').style.width = `${((qIndex + 1) / questions.length) * 100}%`;
+            document.getElementById('q-text').innerText = q.q;
+            document.getElementById('q-icon-a').innerText = q.iconA;
+            document.getElementById('q-text-a').innerText = q.a;
+            document.getElementById('q-icon-b').innerText = q.iconB;
+            document.getElementById('q-text-b').innerText = q.b;
+
+            const qContainer = document.getElementById('screen-question').firstElementChild;
+            qContainer.classList.remove('fade-in'); void qContainer.offsetWidth; qContainer.classList.add('fade-in');
+        }
+
+        function handleAnswer(choice) {
+            triggerHaptic(); 
+            const q = questions[qIndex];
+            scores[choice === 'A' ? q.vA : q.vB]++;
+            qIndex++;
+            if (qIndex < questions.length) updateQuestion(); else startLoading();
+        }
+
+        function startLoading() {
+            switchScreen('screen-loading');
+            let loadPercent = 0;
+            const bar = document.getElementById('loading-bar');
+            const interval = setInterval(() => {
+                loadPercent += Math.random() * 20 + 5;
+                if(loadPercent > 100) loadPercent = 100;
+                bar.style.width = `${loadPercent}%`;
+                if(loadPercent === 100) { clearInterval(interval); setTimeout(showResult, 800); }
+            }, 250);
+        }
+
+        function showResult() {
+            switchScreen('screen-result');
+
+            const m = (scores.E >= scores.I ? "E":"I") + (scores.S >= scores.N ? "S":"N") + (scores.T >= scores.F ? "T":"F") + (scores.J >= scores.P ? "J":"P");
+            const res = resultsMap[m] || resultsMap["ENFP"];
+
+            // 쿠팡 파트너스 데이터
+            const coupangData = {
+                "ENTJ": { url: "https://link.coupang.com/a/example", text: "스나이퍼의 매혹적인 니치 향수 보러가기" },
+                "INTJ": { url: "https://link.coupang.com/a/example", text: "지적인 매력을 더할 블루라이트 차단 안경" },
+                "ENTP": { url: "https://link.coupang.com/a/example", text: "통통 튀는 매력, 트렌디 틴트 세트" },
+                "INTP": { url: "https://link.coupang.com/a/example", text: "방구석 데이트 필수템 미니 빔프로젝터" },
+                "ESTJ": { url: "https://link.coupang.com/a/example", text: "깔끔한 인상의 완성, 프리미엄 셔츠" },
+                "ISTJ": { url: "https://link.coupang.com/a/example", text: "센스있는 선물, 고급 핸드크림 세트" },
+                "ESTP": { url: "https://link.coupang.com/a/example", text: "야외 데이트 필승템, 힙한 캡모자" },
+                "ISTP": { url: "https://link.coupang.com/a/example", text: "시크함을 더해줄 메탈 시계/팔찌" },
+                "ENFJ": { url: "https://link.coupang.com/a/example", text: "따뜻한 분위기 메이커, 감성 캔들" },
+                "INFJ": { url: "https://link.coupang.com/a/example", text: "신비로운 분위기의 디퓨저 세트" },
+                "ENFP": { url: "https://link.coupang.com/a/example", text: "인싸들의 파티 필수템 미러볼 블루투스" },
+                "INFP": { url: "https://link.coupang.com/a/example", text: "새벽 감성 충전, 달빛 무드등" },
+                "ESFJ": { url: "https://link.coupang.com/a/example", text: "세심한 배려의 끝판왕, 피크닉 세트" },
+                "ISFJ": { url: "https://link.coupang.com/a/example", text: "은은한 다정함, 프리미엄 티(Tea) 세트" },
+                "ESFP": { url: "https://link.coupang.com/a/example", text: "데이트 룩 포인트, 화려한 액세서리" },
+                "ISFP": { url: "https://link.coupang.com/a/example", text: "나른한 매력, 포근한 머스크 향 바디워시" }
+            };
+            const myCoupang = coupangData[m] || coupangData["ENFP"];
+
+            document.getElementById('res-emoji').innerText = res.emoji;
+            document.getElementById('res-mbti').innerText = m;
+            document.getElementById('res-title').innerText = res.title;
+            document.getElementById('res-hashtag').innerText = res.hash;
+            document.getElementById('res-desc').innerText = res.desc;
+            document.getElementById('res-skill').innerText = `"${res.skill}"`;
+            
+            // 꿀잼 요소 렌더링
+            document.getElementById('res-weakness').innerText = `"${res.weakness}"`;
+            document.getElementById('res-power-text').innerText = `상위 ${100 - res.power}% 수준`;
+            setTimeout(() => {
+                document.getElementById('res-power-bar').style.width = `${res.power}%`;
+            }, 300); // 바 애니메이션
+
+            document.getElementById('res-best-emoji').innerText = resultsMap[res.best].emoji;
+            document.getElementById('res-best-title').innerText = resultsMap[res.best].title;
+            document.getElementById('res-worst-emoji').innerText = resultsMap[res.worst].emoji;
+            document.getElementById('res-worst-title').innerText = resultsMap[res.worst].title;
+
+            // 쿠팡 배너 렌더링
+            const coupangContainer = document.getElementById('coupang-banner-container');
+            if(coupangContainer) {
+                coupangContainer.innerHTML = `
+                    <div class="p-5 glass-panel border border-pink-500/30 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-pink-500/5 group-hover:bg-pink-500/10 transition-colors"></div>
+                        <p class="text-pink-400 text-[11px] font-bold mb-3 text-center uppercase tracking-widest relative z-10 flex items-center justify-center gap-1"><span>🎁</span> 무기 강화 아이템</p>
+                        <button onclick="window.open('${myCoupang.url}', '_blank')" 
+                                class="w-full py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl font-bold text-sm shadow-[0_0_20px_rgba(236,72,153,0.3)] active:scale-95 transition-all relative z-10 break-keep">
+                            ${myCoupang.text}
+                        </button>
+                        <p class="text-[9px] text-slate-500 mt-4 text-center leading-relaxed relative z-10">
+                            "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        function copyLink() {
+            triggerHaptic();
+            if (navigator.share) {
+                navigator.share({
+                    title: '나의 플러팅 무기 테스트 💘',
+                    text: '내가 썸 탈 때 무의식적으로 꺼내는 무기는? 지금 바로 확인해보세요!',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                const t = document.createElement("input"); document.body.appendChild(t);
+                t.value = window.location.href; t.select(); document.execCommand("copy"); document.body.removeChild(t); 
+                const toast = document.getElementById('toast'); toast.style.opacity = '1';
+                setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+            }
+        }
+    </script>
+</body>
+</html>
